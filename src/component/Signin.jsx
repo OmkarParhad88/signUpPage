@@ -10,6 +10,8 @@ const Signin = () => {
   const [password, setPassword] = useState();
   const navigate = useNavigate();
 
+
+  axios.defaults.withCredentials = true;
   const submitData = (e) => {
     e.preventDefault();
     axios
