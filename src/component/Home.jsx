@@ -19,7 +19,7 @@ const Home = () => {
 
   return (
     <div>
-      <h1>this is home page</h1>
+      <h1 style={{ fontSize: "4rem" }}>this is home page</h1>
     </div>
   );
 };

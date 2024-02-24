@@ -5,27 +5,36 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+
+  const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [checkbox, setCheckbox] = useState();
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  const navigate = useNavigate();
+  // var mess;
+
   const validateEmail = (e) => {
     const email = e.target.value;
     setEmail(e.target.value);
-    if (email) setMessage("");
 
     if (validator.isEmail(email)) {
-      setMessage("true");
+      setMessage("");
     } else {
-      setMessage(false);
+      setMessage("Enter the valid email id");
     }
   };
+
   const handlecheckbox = () => {
     setCheckbox(!checkbox);
+    if (checkbox) {
+      setMessage("Check the box");
+    } else {
+      setMessage("");
+    }
   };
+
   const submitData = (e) => {
     e.preventDefault();
     axios
@@ -56,6 +65,7 @@ const Signup = () => {
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 onChange={(e) => setName(e.target.value)}
+                required
               />
             </div>
             <div className="mb-2">
@@ -69,6 +79,7 @@ const Signup = () => {
                 type="email"
                 className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 onChange={(e) => validateEmail(e)}
+                required
               />
             </div>
 
@@ -83,6 +94,7 @@ const Signup = () => {
                 type="password"
                 className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </div>
 
@@ -93,6 +105,7 @@ const Signup = () => {
                 checked={checkbox}
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 onChange={handlecheckbox}
+                required
               />
               <label
                 htmlFor="link-checkbox"
@@ -121,10 +134,9 @@ const Signup = () => {
               Signin
             </Link>
           </p>
+          <p className=" text-center mt-3 text-red-800">{message}</p>
         </div>
       </div>
-
-      <p className=" items-center">{message}</p>
     </div>
   );
 };

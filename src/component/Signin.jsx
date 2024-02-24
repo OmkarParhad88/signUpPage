@@ -5,11 +5,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Signin = () => {
-  const [message, setMessage] = useState(true);
+  const [message, setMessage] = useState("");
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
-
 
   axios.defaults.withCredentials = true;
   const submitData = (e) => {
@@ -17,8 +16,10 @@ const Signin = () => {
     axios
       .post("http://localhost:3001/signin", { email, password })
       .then((result) => {
-        console.log(result);
-        if (result.data === "Success") {
+        console.log(result.data);
+        setMessage(result.data);
+
+        if (result.data === "Login Success") {
           navigate("/home");
         }
       })
@@ -30,9 +31,9 @@ const Signin = () => {
     if (email === "") setMessage();
 
     if (validator.isEmail(email)) {
-      setMessage(true);
+      setMessage("");
     } else {
-      setMessage(false);
+      setMessage("enter the valid email id");
     }
   };
   return (
@@ -92,9 +93,9 @@ const Signin = () => {
               Signup
             </Link>
           </p>
+          <p className=" mt-8 text-center text-red-700">{message}</p>
         </div>
       </div>
-      <p className=" items-center">{message}</p>
     </div>
   );
 };
