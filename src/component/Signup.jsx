@@ -38,7 +38,7 @@ const Signup = () => {
   const submitData = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3001/signup", { name, email, password })
+      .post("http://localhost:3001/", { name, email, password })
       .then((result) => {
         console.log(result);
         navigate("/home");
